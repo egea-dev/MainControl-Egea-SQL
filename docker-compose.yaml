@@ -33,14 +33,29 @@ services:
       - postgres
     environment:
       - VITE_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
-      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
-      - VITE_SUPABASE_MAIN_URL=${VITE_SUPABASE_MAIN_URL}
-      - VITE_SUPABASE_MAIN_ANON_KEY=${VITE_SUPABASE_MAIN_ANON_KEY}
-      - VITE_SUPABASE_PRODUCTIVITY_URL=${VITE_SUPABASE_PRODUCTIVITY_URL}
-      - VITE_SUPABASE_PRODUCTIVITY_ANON_KEY=${VITE_SUPABASE_PRODUCTIVITY_ANON_KEY}
+      - VITE_SUPABASE_URL=http://api:3000
+      - VITE_SUPABASE_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
+      - VITE_SUPABASE_MAIN_URL=http://api:3000
+      - VITE_SUPABASE_MAIN_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
+      - VITE_SUPABASE_PRODUCTIVITY_URL=http://api:3000
+      - VITE_SUPABASE_PRODUCTIVITY_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
       - VITE_APP_VERSION=${VITE_APP_VERSION:-2.0.1-dev}
       - VITE_PRINTER_API_KEY=${VITE_PRINTER_API_KEY}
+
+  api:
+    image: postgrest/postgrest:v12.0.2
+    container_name: egea_api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PGRST_DB_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      PGRST_DB_SCHEMAS: main,productivity,public
+      PGRST_DB_ANON_ROLE: postgres
+      PGRST_JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-token-para-egea}
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   pgdata:
