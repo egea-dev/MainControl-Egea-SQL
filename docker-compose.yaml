@@ -24,6 +24,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - VITE_SUPABASE_URL=/api
+        - VITE_SUPABASE_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
+        - VITE_SUPABASE_MAIN_URL=/api
+        - VITE_SUPABASE_MAIN_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
+        - VITE_SUPABASE_PRODUCTIVITY_URL=/api
+        - VITE_SUPABASE_PRODUCTIVITY_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
+        - VITE_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     container_name: egea_frontend
     restart: unless-stopped
     # Los puertos los gestiona Coolify automáticamente a través del Proxy (Traefik)
