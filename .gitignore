@@ -1,0 +1,11 @@
+# Ignorar archivos sensibles
+.env
+*.log
+*.bak
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar datos locales de Docker
+pgdata/
