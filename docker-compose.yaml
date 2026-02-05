@@ -27,8 +27,9 @@ services:
       dockerfile: Dockerfile
     container_name: egea_frontend
     restart: unless-stopped
-    ports:
-      - "80:80"
+    # Los puertos los gestiona Coolify automáticamente a través del Proxy (Traefik)
+    # ports:
+    #   - "80:80"
     depends_on:
       - postgres
     environment:
