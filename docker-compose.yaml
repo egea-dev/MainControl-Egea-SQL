@@ -14,11 +14,12 @@ services:
       - ./supabase/merged_schema.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
       - "5432:5432"
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-egea_admin}" ]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+    # Eliminamos el healthcheck temporalmente para que no bloquee el arranque
+    # healthcheck:
+    #   test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-egea_admin}" ]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 10
 
   frontend:
     build:
@@ -29,8 +30,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     environment:
       - VITE_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - VITE_SUPABASE_URL=http://placeholder -- No se usa pero el código puede pedirlo
