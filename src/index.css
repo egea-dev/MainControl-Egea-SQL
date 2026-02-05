@@ -1,0 +1,514 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import './styles/responsive.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    /* Base clara refinada (Premium Light Mode) */
+    --background: 0 0% 98%;
+    --foreground: 222 18% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 18% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 18% 12%;
+
+    /* Burdeos Corporativo: Ajustado para mejor legibilidad en fondo claro */
+    --primary: 346 71% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 98%;
+    --secondary-foreground: 222 18% 12%;
+
+    --muted: 210 16% 96%;
+    --muted-foreground: 215 10% 45%;
+
+    --info: 204 80% 90%;
+    --info-foreground: 210 24% 25%;
+    --warning: 38 92% 92%;
+    --warning-foreground: 24 32% 15%;
+
+    --accent: 210 18% 96%;
+    --accent-foreground: 222 18% 12%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 346 71% 35%;
+
+    /* Efectos Glassmorphism Adaptativos */
+    --glass-background: 0 0% 100% / 0.7;
+    --glass-border: 220 13% 91% / 0.5;
+    --glass-blur: 12px;
+
+    --radius: 1rem;
+
+    font-family: 'Inter', sans-serif;
+  }
+
+  .dark {
+    --background: 20 10% 10%;
+    --foreground: 0 0% 98%;
+
+    --card: 20 10% 14%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 20 10% 14%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 24 94% 54%;
+    --primary-foreground: 20 10% 10%;
+
+    --secondary: 20 8% 20%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 20 8% 18%;
+    --muted-foreground: 24 8% 62%;
+
+    --accent: 20 10% 22%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62% 38%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 20 8% 22%;
+    --input: 20 8% 22%;
+    --ring: 24 94% 54%;
+
+    --info: 204 92% 62%;
+    --info-foreground: 210 32% 92%;
+    --warning: 38 100% 62%;
+    --warning-foreground: 24 32% 18%;
+
+    /* Glassmorphism Dark */
+    --glass-background: 20 10% 14% / 0.7;
+    --glass-border: 20 8% 22% / 0.5;
+  }
+
+  .egea {
+    --background: 345 18% 8%;
+    --foreground: 0 0% 96%;
+
+    --card: 345 18% 12%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 345 18% 12%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 346 70% 45%;
+    --primary-foreground: 345 18% 10%;
+
+    --secondary: 345 12% 18%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 345 10% 16%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 345 12% 20%;
+    --accent-foreground: 0 0% 96%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 345 12% 22%;
+    --input: 345 12% 22%;
+    --ring: 346 70% 45%;
+
+    /* Glassmorphism Egea */
+    --glass-background: 345 18% 12% / 0.7;
+    --glass-border: 345 12% 22% / 0.5;
+  }
+
+  /* Tema NextBlue - Deep Space Blue */
+  .next-blue {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 13%;
+    /* Slate 900/950 mix */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 48%;
+    /* Sky 500 equivalent usually, adjusted for neon feel */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    /* Slate 800 */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 199 89% 48%;
+
+    /* Glassmorphism NextBlue */
+    --glass-background: 222 47% 11% / 0.7;
+    --glass-border: 199 89% 48% / 0.2;
+  }
+
+  /* Tema Haxth3R - Admin Terminal */
+  .haxther {
+    --background: 160 50% 2%;
+    /* #020504 Very dark teal/black */
+    --foreground: 160 85% 55%;
+    /* #14F497 Vibrant Emerald */
+
+    --card: 160 50% 3%;
+    --card-foreground: 160 85% 55%;
+
+    --popover: 160 50% 2%;
+    --popover-foreground: 160 85% 55%;
+
+    --primary: 160 85% 45%;
+    /* #11BE75 Primary button color */
+    --primary-foreground: 160 50% 2%;
+
+    --secondary: 160 50% 10%;
+    --secondary-foreground: 160 85% 65%;
+
+    --muted: 160 30% 12%;
+    --muted-foreground: 160 40% 45%;
+
+    --accent: 160 50% 15%;
+    --accent-foreground: 160 85% 65%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 85% 30%;
+    /* Dimmed Emerald Border */
+    --input: 160 50% 10%;
+    --ring: 160 85% 55%;
+
+    --radius: 0;
+
+    /* Glassmorphism Haxth3R */
+    --glass-background: 160 50% 2% / 0.95;
+    --glass-border: 160 85% 45% / 0.3;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .card-spacing {
+    @apply p-6;
+  }
+
+  .section-spacing {
+    @apply space-y-6;
+  }
+
+  .table-spacing td,
+  .table-spacing th {
+    @apply px-4 py-3;
+  }
+
+  .rdp-day_hasTasks {
+    position: relative;
+  }
+
+  .rdp-day_hasTasks::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 6px;
+    height: 6px;
+    background-color: hsl(var(--primary));
+    border-radius: 50%;
+  }
+
+  .rdp-day_today {
+    background: hsl(14 100% 63%);
+    color: white;
+    font-weight: bold;
+    border-radius: 0.375rem;
+    border: 2px solid hsl(14 100% 80%);
+  }
+
+  .rdp-day_pending {
+    background-color: hsl(var(--primary) / 0.12);
+    border: 1px solid hsl(var(--primary) / 0.4);
+    color: hsl(var(--primary));
+    font-weight: 600;
+    border-radius: 0.375rem;
+  }
+
+  .rdp-day_pending:hover {
+    background-color: hsl(var(--primary) / 0.18);
+  }
+
+  .rdp {
+    --rdp-accent-color: hsl(var(--primary));
+    --rdp-outline: 2px solid hsl(var(--primary));
+    font-family: inherit;
+  }
+
+  .rdp-nav.button_previous,
+  .rdp-nav.button_next {
+    border-radius: 9999px;
+    color: hsl(var(--primary));
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .rdp-nav.button_previous:hover,
+  .rdp-nav.button_next:hover {
+    background-color: hsl(var(--primary) / 0.12);
+  }
+
+  .rdp-day {
+    transition: all 0.2s ease;
+    border-radius: 0.375rem;
+  }
+
+  .rdp-day:not([disabled]):hover {
+    transform: translateY(-1px);
+  }
+
+  .rdp-today {
+    position: relative;
+    font-weight: 700;
+  }
+
+  .rdp-month {
+    width: 100%;
+  }
+
+  .rdp-weeknumber,
+  .rdp-cell {
+    padding: 0.25rem;
+  }
+
+  .rdp-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.25rem;
+  }
+
+  .rdp-head_cell {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .rdp-day:hover {
+    background-color: hsl(var(--accent));
+  }
+
+  .rdp-day_selected {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-weight: 600;
+  }
+
+  .rdp-day_selected:hover {
+    background-color: hsl(var(--primary));
+  }
+
+  .rdp-day_today {
+    background-color: hsl(14 100% 63%);
+    color: white;
+    font-weight: bold;
+  }
+
+  .rdp-day_today:hover {
+    background-color: hsl(14 100% 58%);
+  }
+
+  @media (max-width: 640px) {
+    .rdp-months {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .rdp-month {
+      padding: 0.75rem;
+    }
+
+    .rdp-day {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.875rem;
+    }
+
+    .rdp-head_cell {
+      font-size: 0.75rem;
+      padding: 0.25rem 0;
+    }
+  }
+}
+
+@layer utilities {
+
+
+  .bg-pulse-neutral {
+    background-color: hsl(var(--card));
+    color: hsl(var(--foreground));
+    animation: bg-pulse-neutral 1.8s ease-in-out infinite;
+  }
+
+  .bg-pulse-danger {
+    background-color: hsl(var(--destructive) / 0.18);
+    color: hsl(var(--destructive-foreground));
+    animation: bg-pulse-danger 1.8s ease-in-out infinite;
+  }
+
+  .bg-pulse-info {
+    background-color: hsl(var(--info) / 0.25);
+    color: hsl(var(--info-foreground));
+    animation: bg-pulse-info 1.8s ease-in-out infinite;
+  }
+
+  .bg-pulse-warning {
+    background-color: hsl(var(--warning) / 0.25);
+    color: hsl(var(--warning-foreground));
+    animation: bg-pulse-warning 1.8s ease-in-out infinite;
+  }
+
+  .bg-pulse-critical {
+    background-color: hsl(var(--destructive) / 0.35);
+    color: hsl(var(--destructive-foreground));
+    animation: bg-pulse-critical 1.8s ease-in-out infinite;
+  }
+
+  .production-action-button>* {
+    background-color: transparent !important;
+  }
+
+  .production-stepper {
+    background-color: transparent !important;
+  }
+
+  .production-stepper * {
+    background-color: transparent !important;
+  }
+}
+
+@keyframes bg-pulse-neutral {
+
+  0%,
+  100% {
+    background-color: hsl(var(--card));
+  }
+
+  50% {
+    background-color: hsl(var(--card) / 0.85);
+  }
+}
+
+@keyframes bg-pulse-danger {
+
+  0%,
+  100% {
+    background-color: hsl(var(--destructive) / 0.18);
+  }
+
+  50% {
+    background-color: hsl(var(--destructive) / 0.32);
+  }
+}
+
+@keyframes bg-pulse-info {
+
+  0%,
+  100% {
+    background-color: hsl(var(--info) / 0.25);
+  }
+
+  50% {
+    background-color: hsl(var(--info) / 0.38);
+  }
+}
+
+@keyframes bg-pulse-warning {
+
+  0%,
+  100% {
+    background-color: hsl(var(--warning) / 0.25);
+  }
+
+  50% {
+    background-color: hsl(var(--warning) / 0.4);
+  }
+}
+
+@keyframes bg-pulse-critical {
+
+  0%,
+  100% {
+    background-color: hsl(var(--destructive) / 0.35);
+  }
+
+  50% {
+    background-color: hsl(var(--destructive) / 0.5);
+  }
+}
+
+/* Custom Scrollbar Styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(215 20% 35%) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: hsl(215 20% 35%);
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(215 20% 45%);
+}
+
+/* Dark mode scrollbar */
+.dark .scrollbar-thin {
+  scrollbar-color: hsl(215 15% 40%) transparent;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: hsl(215 15% 40%);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(215 15% 50%);
+}
+
+/* Los estilos de priorización premium v3.1.0 se encuentran en styles/responsive.css */

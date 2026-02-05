@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  egea-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Build Args se configuran en Coolify UI → Build Arguments
+      # NO poner secretos aquí - esto es solo para desarrollo local
+    container_name: egea-main-control
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - egea-internal
+    # Limitar recursos (recomendado)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+networks:
+  egea-internal:
+    driver: bridge
