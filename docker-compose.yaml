@@ -63,8 +63,7 @@ services:
       PGRST_JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-token-para-egea}
       PGRST_DB_SCHEMA: main
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
 
 volumes:
   pgdata:
