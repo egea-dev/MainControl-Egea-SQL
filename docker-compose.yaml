@@ -53,6 +53,7 @@ services:
     depends_on:
       - frontend
       - api
+      - auth
     networks:
       - coolify
 
