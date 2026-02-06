@@ -21,7 +21,7 @@ services:
   # AUTH - GoTrue (Supabase Auth)
   # ==========================================
   auth:
-    image: supabase/gotrue:v2.151.0
+    image: supabase/gotrue:v2.158.1
     container_name: egea_auth
     restart: unless-stopped
     environment:
