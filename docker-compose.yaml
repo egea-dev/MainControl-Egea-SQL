@@ -16,12 +16,6 @@ services:
       PGRST_DB_SCHEMA: main
     networks:
       - coolify
-    healthcheck:
-      test: [ "CMD-SHELL", "wget -qO- http://localhost:3000/ > /dev/null || exit 1" ]
-      interval: 15s
-      timeout: 10s
-      retries: 10
-      start_period: 40s
 
   # ==========================================
   # FRONTEND
@@ -44,12 +38,6 @@ services:
       - api
     networks:
       - coolify
-    healthcheck:
-      test: [ "CMD-SHELL", "wget -qO- http://localhost:80/ > /dev/null || exit 1" ]
-      interval: 15s
-      timeout: 10s
-      retries: 10
-      start_period: 40s
 
   # ==========================================
   # NGINX - Reverse Proxy
@@ -65,12 +53,6 @@ services:
       - api
     networks:
       - coolify
-    healthcheck:
-      test: [ "CMD-SHELL", "wget -qO- http://localhost:80/healthz > /dev/null || exit 1" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 15s
 
 # ==========================================
 # REDES - Usar la red predeterminada de Coolify
