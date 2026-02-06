@@ -33,6 +33,7 @@ services:
 
       GOTRUE_SITE_URL: https://main.egeadev.cloud
       GOTRUE_URI_ALLOW_LIST: '*'
+      API_EXTERNAL_URL: https://main.egeadev.cloud/api/auth
 
       GOTRUE_JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-token-para-egea}
       GOTRUE_JWT_EXP: 3600
