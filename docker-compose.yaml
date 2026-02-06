@@ -16,7 +16,7 @@ services:
       PGRST_JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-token-para-egea}
       PGRST_DB_SCHEMA: main
     networks:
-      - app-network
+      - coolify
 
   # ==========================================
   # FRONTEND
@@ -48,11 +48,11 @@ services:
       - VITE_APP_VERSION=${VITE_APP_VERSION:-2.0.1-dev}
       - VITE_PRINTER_API_KEY=${VITE_PRINTER_API_KEY}
     networks:
-      - app-network
+      - coolify
 
 # ==========================================
-# REDES
+# REDES - Usar la red predeterminada de Coolify
 # ==========================================
 networks:
-  app-network:
-    driver: bridge
+  coolify:
+    external: true
