@@ -18,6 +18,33 @@ services:
       - coolify
 
   # ==========================================
+  # AUTH - GoTrue (Supabase Auth)
+  # ==========================================
+  auth:
+    image: supabase/gotrue:v2.151.0
+    container_name: egea_auth
+    restart: unless-stopped
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: 9999
+
+      GOTRUE_DB_DRIVER: postgres
+      GOTRUE_DB_DATABASE_URL: ${DATABASE_URL}
+
+      GOTRUE_SITE_URL: https://main.egeadev.cloud
+      GOTRUE_URI_ALLOW_LIST: '*'
+
+      GOTRUE_JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-token-para-egea}
+      GOTRUE_JWT_EXP: 3600
+      GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+
+      GOTRUE_DISABLE_SIGNUP: false
+      GOTRUE_MAILER_AUTOCONFIRM: true
+      GOTRUE_EXTERNAL_EMAIL_ENABLED: true
+    networks:
+      - coolify
+
+  # ==========================================
   # FRONTEND
   # ==========================================
   frontend:
