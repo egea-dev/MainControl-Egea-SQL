@@ -14,6 +14,7 @@ services:
       PGRST_DB_ANON_ROLE: postgres
       PGRST_JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-token-para-egea}
       PGRST_DB_SCHEMA: main
+      PGRST_DB_EXTRA_SEARCH_PATH: main,productivity,public
     networks:
       - coolify
 
