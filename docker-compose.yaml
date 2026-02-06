@@ -43,16 +43,6 @@ services:
     restart: unless-stopped
     depends_on:
       - api
-    environment:
-      - VITE_DATABASE_URL=${DATABASE_URL}
-      - VITE_SUPABASE_URL=http://api:3000
-      - VITE_SUPABASE_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
-      - VITE_SUPABASE_MAIN_URL=http://api:3000
-      - VITE_SUPABASE_MAIN_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
-      - VITE_SUPABASE_PRODUCTIVITY_URL=http://api:3000
-      - VITE_SUPABASE_PRODUCTIVITY_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
-      - VITE_APP_VERSION=${VITE_APP_VERSION:-2.0.1-dev}
-      - VITE_PRINTER_API_KEY=${VITE_PRINTER_API_KEY}
     networks:
       - coolify
     healthcheck:
@@ -61,6 +51,27 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
+
+  # ==========================================
+  # NGINX - Reverse Proxy
+  # ==========================================
+  nginx:
+    image: nginx:alpine
+    container_name: egea_nginx
+    restart: unless-stopped
+    depends_on:
+      - frontend
+      - api
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - coolify
+    healthcheck:
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
 # ==========================================
 # REDES - Usar la red predeterminada de Coolify
