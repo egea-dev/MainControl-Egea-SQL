@@ -17,6 +17,12 @@ services:
       PGRST_DB_SCHEMA: main
     networks:
       - coolify
+    healthcheck:
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   # ==========================================
   # FRONTEND
@@ -49,6 +55,12 @@ services:
       - VITE_PRINTER_API_KEY=${VITE_PRINTER_API_KEY}
     networks:
       - coolify
+    healthcheck:
+      test: [ "CMD-SHELL", "nc -z localhost 80 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
 # ==========================================
 # REDES - Usar la red predeterminada de Coolify
