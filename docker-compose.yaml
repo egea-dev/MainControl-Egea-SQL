@@ -25,11 +25,11 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - VITE_SUPABASE_URL=/api
+        - VITE_SUPABASE_URL=https://main.egeadev.cloud/api
         - VITE_SUPABASE_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
-        - VITE_SUPABASE_MAIN_URL=/api
+        - VITE_SUPABASE_MAIN_URL=https://main.egeadev.cloud/api
         - VITE_SUPABASE_MAIN_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
-        - VITE_SUPABASE_PRODUCTIVITY_URL=/api
+        - VITE_SUPABASE_PRODUCTIVITY_URL=https://main.egeadev.cloud/api
         - VITE_SUPABASE_PRODUCTIVITY_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
         - VITE_DATABASE_URL=${DATABASE_URL}
     container_name: egea_frontend
