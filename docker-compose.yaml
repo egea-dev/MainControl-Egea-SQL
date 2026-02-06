@@ -2,41 +2,15 @@ version: '3.8'
 
 services:
   # ==========================================
-  # POSTGRESQL - Base de datos
-  # ==========================================
-  postgres:
-    image: postgres:16-alpine
-    container_name: egea_postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-egea_control}
-      POSTGRES_USER: ${POSTGRES_USER:-egea_admin}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres123}
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./supabase/merged_schema.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-egea_admin} -d ${POSTGRES_DB:-egea_control} || exit 1" ]
-      interval: 10s
-      timeout: 5s
-      retries: 20
-      start_period: 120s
-    networks:
-      - app-network
-
-  # ==========================================
-  # API - PostgREST
+  # API - PostgREST (conecta a PostgreSQL externo)
   # ==========================================
   api:
     image: postgrest/postgrest:v12.0.2
     container_name: egea_api
     restart: unless-stopped
-    depends_on:
-      postgres:
-        condition: service_healthy
     environment:
-      PGRST_DB_URI: postgresql://${POSTGRES_USER:-egea_admin}:${POSTGRES_PASSWORD:-postgres123}@postgres:5432/${POSTGRES_DB:-egea_control}
+      # Conexión a PostgreSQL externo de Coolify
+      PGRST_DB_URI: ${DATABASE_URL}
       PGRST_DB_SCHEMAS: main,productivity,public
       PGRST_DB_ANON_ROLE: postgres
       PGRST_JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-token-para-egea}
@@ -58,13 +32,13 @@ services:
         - VITE_SUPABASE_MAIN_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
         - VITE_SUPABASE_PRODUCTIVITY_URL=/api
         - VITE_SUPABASE_PRODUCTIVITY_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
-        - VITE_DATABASE_URL=postgresql://${POSTGRES_USER:-egea_admin}:${POSTGRES_PASSWORD:-postgres123}@postgres:5432/${POSTGRES_DB:-egea_control}
+        - VITE_DATABASE_URL=${DATABASE_URL}
     container_name: egea_frontend
     restart: unless-stopped
     depends_on:
       - api
     environment:
-      - VITE_DATABASE_URL=postgresql://${POSTGRES_USER:-egea_admin}:${POSTGRES_PASSWORD:-postgres123}@postgres:5432/${POSTGRES_DB:-egea_control}
+      - VITE_DATABASE_URL=${DATABASE_URL}
       - VITE_SUPABASE_URL=http://api:3000
       - VITE_SUPABASE_ANON_KEY=${JWT_SECRET:-super-secret-jwt-token-para-egea}
       - VITE_SUPABASE_MAIN_URL=http://api:3000
@@ -75,13 +49,6 @@ services:
       - VITE_PRINTER_API_KEY=${VITE_PRINTER_API_KEY}
     networks:
       - app-network
-
-# ==========================================
-# VOLÚMENES
-# ==========================================
-volumes:
-  pgdata:
-    driver: local
 
 # ==========================================
 # REDES
