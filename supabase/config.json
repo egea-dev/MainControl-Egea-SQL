@@ -1,0 +1,10 @@
+{
+    "main": {
+        "url": "https://jyaudpctcqcuskzwmism.supabase.co",
+        "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5YXVkcGN0Y3FjdXNrendtaXNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzOTQwMTksImV4cCI6MjA4MTk3MDAxOX0.axwqydev8DYfkhqK1eUsgl0x_9yI41OXicnHcaqeXNs"
+    },
+    "productivity": {
+        "url": "https://zslcblcetrhbsdirkvza.supabase.co",
+        "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzbGNibGNldHJoYnNkaXJrdnphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzNTMxMzUsImV4cCI6MjA4MTkyOTEzNX0.-w4DP6Y3VbBy9cXgWYClv5IBu2JNhgtWBYlP2WzpKPY"
+    }
+}

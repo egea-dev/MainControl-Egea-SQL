@@ -9,7 +9,6 @@ services:
     container_name: egea_api
     restart: unless-stopped
     environment:
-      # Conexión a PostgreSQL externo de Coolify
       PGRST_DB_URI: ${DATABASE_URL}
       PGRST_DB_SCHEMAS: main,productivity,public
       PGRST_DB_ANON_ROLE: postgres
@@ -18,11 +17,11 @@ services:
     networks:
       - coolify
     healthcheck:
-      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/" ]
-      interval: 30s
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:3000/ > /dev/null || exit 1" ]
+      interval: 15s
       timeout: 10s
-      retries: 3
-      start_period: 30s
+      retries: 10
+      start_period: 40s
 
   # ==========================================
   # FRONTEND
@@ -46,11 +45,11 @@ services:
     networks:
       - coolify
     healthcheck:
-      test: [ "CMD-SHELL", "nc -z localhost 80 || exit 1" ]
-      interval: 30s
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:80/ > /dev/null || exit 1" ]
+      interval: 15s
       timeout: 10s
-      retries: 3
-      start_period: 60s
+      retries: 10
+      start_period: 40s
 
   # ==========================================
   # NGINX - Reverse Proxy
@@ -67,11 +66,11 @@ services:
     networks:
       - coolify
     healthcheck:
-      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:80/healthz > /dev/null || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
 
 # ==========================================
 # REDES - Usar la red predeterminada de Coolify
